@@ -1,4 +1,5 @@
-import { LI,H2,UL } from "./Contacts.styled"
+import { LI, H2, UL } from "./Contacts.styled"
+import PropTypes from 'prop-types';
 
 export const Contacts = ({ contacts, deleteContact }) => {
     return (
@@ -20,4 +21,8 @@ export const Contacts = ({ contacts, deleteContact }) => {
             </UL>
         </>
     )
+}
+Contacts.propTypes = {
+    contacts: PropTypes.array.isRequired,
+    deleteContact: PropTypes.func.isRequired,
 }

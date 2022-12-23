@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormContainer } from './Form.styled'
+import { FormContainer,Input,Label } from './Form.styled'
 import { nanoid } from 'nanoid'
 
 
@@ -9,52 +9,59 @@ state = {
     name: '',
     number: ''
 }
-    inputAddedName = (evt) => {
+//Получаем данные из полей записываем в state
+    inputAddedName = evt => {
     const {name,value,id} = evt.currentTarget;
     this.setState({
         [name]: value,
         id
     })
     }
-    onSubmitForm = (evt) => {
+//Добавляем данные в Арр 
+//переносим данные из state в props submitData
+    onSubmitForm = evt => {
     evt.preventDefault();
+//Передаем данные в Арр через пропс submitData
     this.props.submitData(this.state);
     this.resetForm();
     }
+//Очищаем поля формы
     resetForm = ()=>{
-    this.setState({name: '',number:''})
+    this.setState({name: '',number:'',id:''})
     }
+
     render() {
 const uniqueId = nanoid();
+const {name,number} = this.state
     return (
     <FormContainer>
-        <form action="" style={{
+        <form style={{
             display: 'flex',
             flexDirection: 'column'
         }}
             onSubmit={this.onSubmitForm}
         >
-        <label >Name</label>
-            <input
+        <Label >Name</Label>
+            <Input
                 id={uniqueId}
                 autoComplete="off"
                 type="text"
                 name="name"
                 pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters"
-                value={this.state.name}
+                title="May contain only letters"
+                value={name}
                 onChange={this.inputAddedName}
                 required />
                 <br />
-        <label>Number</label>
-            <input
+        <Label>Number</Label>
+            <Input
                 id={uniqueId}
                 autoComplete="off"
-                type="text"
+                type="tel"
                 name="number"
                 pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Name may contain only letters"
-                value={this.state.number}
+                title="May contain only number"
+                value={number}
                 onChange={this.inputAddedName}
                 required />
 
